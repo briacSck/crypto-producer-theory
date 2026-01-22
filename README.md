@@ -13,7 +13,7 @@ Based on research paper from UC Berkeley INFO 134/234.
 ## Model
 
 Producers maximize profit: p = revenue - costs - volatility_penalty  
-Choice variables: (b, c, p) ? [0,1]³ (Bitcoin, card, cash acceptance)
+Choice variables: Choice variables: $(b, c, p) \in [0,1]^3$ (Bitcoin, card, cash acceptance).
 
 Key mechanism: Adoption complementarity creates multiple equilibria.
 
