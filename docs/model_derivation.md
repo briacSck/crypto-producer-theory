@@ -1,8 +1,8 @@
-# Model Derivation: Producer Payment Choice with Network Effects
+# Model Derivation: Producer Payment Choice
 
 ## Introduction
 
-This document presents the formal derivation of a producer profit maximization model in economies where Bitcoin is legal tender (e.g., El Salvador). The model compares profits across seven payment acceptance situations, incorporating network effects and cryptocurrency volatility.
+This document presents the formal derivation of a producer profit maximization model in economies where Bitcoin is legal tender (e.g., El Salvador). The model compares profits across seven payment acceptance situations, incorporating cryptocurrency volatility.
 
 Based on: Noel, T. & Sockalingum, B. (2024). *Crypto Producer Theory*. UC Berkeley INFO 134/234.
 
@@ -58,7 +58,7 @@ Consumers choose the payment combination yielding maximum utility.
 For a firm \( j \) accepting payment situation \( k \):
 
 \\\
-p^k_j = P^k(q^k) · q^k - c^k · q^k
+p^k_j = P^k(q^k) Â· q^k - c^k Â· q^k
 \\\
 
 Where:
@@ -91,20 +91,20 @@ Bitcoin exhibits **price volatility**. Model this as:
 - **?**: Probability that Bitcoin price remains stable (no crash)
 - **1 - ?**: Probability of Bitcoin crash
 
-**Assumption**: If Bitcoin crashes, firm's profit = **-c^k · q^k** (pure loss of costs).
+**Assumption**: If Bitcoin crashes, firm's profit = **-c^k Â· q^k** (pure loss of costs).
 
 ### 3.2 Expected Profit (Situations Y)
 
 For situations including Bitcoin (\( k \in Y \)):
 
 \\\
-E(p^k_j) = ? · [P^k(q^k) · q^k - c^k · q^k] - (1 - ?) · c^k · q^k
+E(p^k_j) = ? Â· [P^k(q^k) Â· q^k - c^k Â· q^k] - (1 - ?) Â· c^k Â· q^k
 \\\
 
 Simplifying:
 
 \\\
-E(p^k_j) = ? · [(a^k - q^k) · q^k - c^k · q^k] - (1 - ?) · c^k · q^k
+E(p^k_j) = ? Â· [(a^k - q^k) Â· q^k - c^k Â· q^k] - (1 - ?) Â· c^k Â· q^k
 \\\
 
 ---
@@ -116,7 +116,7 @@ E(p^k_j) = ? · [(a^k - q^k) · q^k - c^k · q^k] - (1 - ?) · c^k · q^k
 **Profit function**:
 
 \\\
-p^k_j = (a^k - q^k) · q^k - c^k · q^k
+p^k_j = (a^k - q^k) Â· q^k - c^k Â· q^k
 \\\
 
 **First-order condition**:
@@ -131,7 +131,7 @@ p^k_j = (a^k - q^k) · q^k - c^k · q^k
 \\\
 (q^k)* = (a^k - c^k) / 2
 (p^k)* = (a^k + c^k) / 2
-(p^k)* = [(a^k - c^k) / 2]²
+(p^k)* = [(a^k - c^k) / 2]Â²
 \\\
 
 **Standard result**: Profit depends quadratically on (willingness to pay - cost).
@@ -143,22 +143,22 @@ p^k_j = (a^k - q^k) · q^k - c^k · q^k
 **Expected profit function**:
 
 \\\
-E(p^k_j) = ? · [(a^k - q^k) · q^k - c^k · q^k] - (1 - ?) · c^k · q^k
+E(p^k_j) = ? Â· [(a^k - q^k) Â· q^k - c^k Â· q^k] - (1 - ?) Â· c^k Â· q^k
 \\\
 
 **First-order condition**:
 
 \\\
 ?E(p^k_j) / ?q^k = 0 
-? ? · (a^k - 2q^k - c^k) - (1 - ?) · c^k = 0
+? ? Â· (a^k - 2q^k - c^k) - (1 - ?) Â· c^k = 0
 \\\
 
 **Equilibrium**:
 
 \\\
-(q^k)* = (? · a^k - c^k) / (2?)
-(p^k)* = (? · a^k + c^k) / (2?)
-E(p^k_j)* = [(? · a^k - c^k) / 2]² - (1 - ?) · c^k · [(? · a^k - c^k) / (2?)]
+(q^k)* = (? Â· a^k - c^k) / (2?)
+(p^k)* = (? Â· a^k + c^k) / (2?)
+E(p^k_j)* = [(? Â· a^k - c^k) / 2]Â² - (1 - ?) Â· c^k Â· [(? Â· a^k - c^k) / (2?)]
 \\\
 
 **Key parameter**: Volatility probability **?** directly affects optimal quantity and expected profit.
@@ -186,7 +186,7 @@ For which values of **?** is accepting Bitcoin more profitable?
 When ? = 1 (Bitcoin never crashes):
 
 \\\
-E(p^k_j)* = [(a^k - c^k) / 2]² - 0 = (p^k)*
+E(p^k_j)* = [(a^k - c^k) / 2]Â² - 0 = (p^k)*
 \\\
 
 **Result**: Profits are **equal**. No difference between accepting Bitcoin or not.
@@ -198,16 +198,16 @@ E(p^k_j)* = [(a^k - c^k) / 2]² - 0 = (p^k)*
 For the volatility term:
 
 \\\
-(1 - ?) · c^k · [(? · a^k - c^k) / (2?)]
-= (1 - ?) · c^k · [a^k/2 - c^k/(2?)]
-? -(c^k)² / (2?)  as  ? ? 0
+(1 - ?) Â· c^k Â· [(? Â· a^k - c^k) / (2?)]
+= (1 - ?) Â· c^k Â· [a^k/2 - c^k/(2?)]
+? -(c^k)Â² / (2?)  as  ? ? 0
 ? -8
 \\\
 
 Plugging back:
 
 \\\
-(p^k)* = [(? · a^k - c^k) / 2]² + 8
+(p^k)* = [(? Â· a^k - c^k) / 2]Â² + 8
 \\\
 
 **Result**: Expected profit with Bitcoin ? **+8**
