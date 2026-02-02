@@ -1,0 +1,7 @@
+CRYPTO PRODUCER THEORY - SUMMARY STATISTICS
+==================================================
+
+Critical Threshold (γ*): 0.9506
+Optimal Method: C
+Max Profit: 2678.0625
+Profit Gain (C→G) at γ=0.7: -1360.2054
