@@ -214,3 +214,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Ignore Jupyter checkpoints
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
