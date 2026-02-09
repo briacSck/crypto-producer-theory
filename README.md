@@ -26,6 +26,7 @@ Key mechanism: Adoption complementarity creates multiple equilibria.
 
 ## Status
 
-WIP: Implementing computational version of theoretical model
+WIP: Implementing computational version of theoretical model --> DONE
+WIP: Implementing ML work on empirical data
 
 
