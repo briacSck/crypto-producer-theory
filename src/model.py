@@ -218,7 +218,7 @@ class ProducerModel:
         Solution:
             q* = (γa^k - c^k) / (2γ)
             p* = (γa^k + c^k) / (2γ)
-            E[π*] = ((γa^k - c^k) / 2)^2 - (1-γ)c^k[(γa^k - c^k) / (2γ)]
+            E[π*] = (γa^k - c^k)² / (4γ)
 
         Args:
             method: Payment method identifier (D, E, F, or G)
