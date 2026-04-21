@@ -5,8 +5,8 @@ Verifies all core functionality and reproduces paper results.
 """
 
 import numpy as np
-import sys
-sys.path.append('.')  # Ensure model.py is importable
+import os, sys
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'src'))
 
 from model import (
     ProducerModel, 
