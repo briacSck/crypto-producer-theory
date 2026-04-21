@@ -88,6 +88,29 @@ def test_equilibrium_with_volatility():
     print(f"✅ Method D (γ=0): E[π]*={result_D_zero.profit_star} (should be -inf or 0)")
 
 
+def test_volatility_profit_correctness():
+    """Validate E[π] formula against direct computation for intermediate γ values."""
+    print("Test 3b: Volatility Profit Formula (intermediate γ)")
+    print("-" * 50)
+
+    for gamma in [0.5, 0.7, 0.8, 0.95]:
+        params = ModelParameters(
+            a_k={m: 100 for m in "ABCDEFG"},
+            c_k={m: 20  for m in "ABCDEFG"},
+            gamma=gamma
+        )
+        model = ProducerModel(params)
+        result = model.solve_equilibrium_with_volatility("D")
+        q = result.q_star
+        a_val, c_val = params.a_k["D"], params.c_k["D"]
+        p = a_val - q
+        # E[π] = γ·(p-c)·q - (1-γ)·c·q
+        expected = gamma * (p - c_val) * q - (1 - gamma) * c_val * q
+        assert np.isclose(result.profit_star, expected, rtol=1e-10), \
+            f"γ={gamma}: got {result.profit_star:.6f}, expected {expected:.6f}"
+        print(f"✅ γ={gamma}: E[π]*={result.profit_star:.4f} (direct={expected:.4f})")
+
+
 def test_comparison_function():
     """Test scenario comparison"""
     print("Test 4: Scenario Comparison")

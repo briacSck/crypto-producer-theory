@@ -158,7 +158,7 @@ E(p^k_j) = ? · [(a^k - q^k) · q^k - c^k · q^k] - (1 - ?) · c^k · q^k
 \\\
 (q^k)* = (? · a^k - c^k) / (2?)
 (p^k)* = (? · a^k + c^k) / (2?)
-E(p^k_j)* = [(? · a^k - c^k) / 2]² - (1 - ?) · c^k · [(? · a^k - c^k) / (2?)]
+E(π^k_j)* = (? · a^k - c^k)² / (4?)
 \\\
 
 **Key parameter**: Volatility probability **?** directly affects optimal quantity and expected profit.
@@ -208,10 +208,10 @@ The loss term dominates:
 \\\
 
 **Result**: As ? ? 0 (crash certainty), the loss term (1-?)·c^k·q^k dominates.
-Since q* = (?a^k - c^k)/(2?) ? -c^k/(2?) ? -8, and (1-?) ? 1,
-the expected profit E[?*] ? **-8**. A firm facing certain Bitcoin crashes
+Since q* = (?a^k - c^k)/(2?) ? -c^k/(2?) ? -?, and (1-?) ? 1,
+the expected profit E[?*] ? **-?**. A firm facing certain Bitcoin crashes
 will not produce — this is the economically correct result.
-The code correctly returns E[?] = -8 for ? = 0.
+The code correctly returns E[?] = -? for ? = 0.
 
 ---
 

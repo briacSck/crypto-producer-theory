@@ -261,10 +261,8 @@ class ProducerModel:
         q_star = numerator / (2 * gamma)
         p_star = (gamma * a_k + c_k) / (2 * gamma)
 
-        # Calculate expected profit
-        profit_component_1 = (numerator / 2) ** 2
-        profit_component_2 = (1 - gamma) * c_k * (numerator / (2 * gamma))
-        expected_profit = profit_component_1 - profit_component_2
+        # E[π] = γ·(p*-c)·q* - (1-γ)·c·q* = num²/(4γ), where num = γa^k - c^k
+        expected_profit = (numerator ** 2) / (4 * gamma)
 
         return EquilibriumResult(
             method=method,
@@ -391,19 +389,15 @@ class ProducerModel:
 
         original_gamma = self.params.gamma
 
-        for g in gammas:
-            # Temporarily update gamma
-            self.params.gamma = g
-
-            # Calculate profits
-            result_non = self.solve_equilibrium_without_volatility(non_bitcoin_method)
-            result_btc = self.solve_equilibrium_with_volatility(bitcoin_method)
-
-            profits_non_btc.append(result_non.profit_star)
-            profits_btc.append(result_btc.profit_star)
-
-        # Restore original gamma
-        self.params.gamma = original_gamma
+        try:
+            for g in gammas:
+                self.params.gamma = g
+                result_non = self.solve_equilibrium_without_volatility(non_bitcoin_method)
+                result_btc = self.solve_equilibrium_with_volatility(bitcoin_method)
+                profits_non_btc.append(result_non.profit_star)
+                profits_btc.append(result_btc.profit_star)
+        finally:
+            self.params.gamma = original_gamma
 
         profit_diffs = np.array(profits_btc) - np.array(profits_non_btc)
 
