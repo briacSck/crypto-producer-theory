@@ -218,3 +218,7 @@ __marimo__/
 # Ignore Jupyter checkpoints
 .ipynb_checkpoints/
 **/.ipynb_checkpoints/
+
+
+# Claude
+.claude/
