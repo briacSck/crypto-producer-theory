@@ -1,0 +1,40 @@
+% results_latex.tex - Tables for crypto_producer_theory_revised.tex
+
+% TABLE 1: Baseline equilibrium at gamma = 0.7
+\begin{table}[h]
+\centering
+\caption{Equilibrium outcomes for all 7 payment scenarios at $\gamma = 0.7$}
+\label{tab:equilibrium_baseline}
+\begin{tabular}{clrrrl}
+\toprule
+Scenario & Description & $q^*$ & $p^*$ & Profit & Type \\
+\midrule
+A & Cash Only              & 47.50 & 52.50 & 2256.25 & $\pi^*$ \\
+B & Card Only              & 48.50 & 56.50 & 2352.25 & $\pi^*$ \\
+C & Cash + Card            & 51.75 & 58.25 & 2678.06 & $\pi^*$ \\
+D & Bitcoin Only           & 46.07 & 48.93 & 1012.42 & $E[\pi^*]$ \\
+E & Bitcoin + Cash         & 51.50 & 56.50 & 1245.53 & $E[\pi^*]$ \\
+F & Bitcoin + Card         & 52.43 & 59.57 & 1268.25 & $E[\pi^*]$ \\
+G & All Three              & 53.57 & 61.43 & 1317.86 & $E[\pi^*]$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% TABLE 2: Profit comparison across gamma values
+\begin{table}[h]
+\centering
+\caption{Profit differential $E[\pi^{G*}] - \pi^{C*}$ across Bitcoin stability levels ($\gamma^* \approx 0.9506$)}
+\label{tab:profit_comparison}
+\begin{tabular}{crrrc}
+\toprule
+$\gamma$ & $\pi^{C*}$ & $E[\pi^{G*}]$ & $\Delta$ Profit & Adopt Bitcoin? \\
+\midrule
+0.20 & 2678.06 &  $-$115.94 & $-$2794.00 & No \\
+0.40 & 2678.06 &   243.00   & $-$2435.06 & No \\
+0.60 & 2678.06 &   891.65   & $-$1786.42 & No \\
+0.80 & 2678.06 &  1811.09   &  $-$866.97 & No \\
+0.95 & 2678.06 &  2676.00   &   $-$2.06  & No \\
+1.00 & 2678.06 &  2997.56   &  $+$319.50 & Yes \\
+\bottomrule
+\end{tabular}
+\end{table}

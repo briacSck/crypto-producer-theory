@@ -193,47 +193,41 @@ E(p^k_j)* = [(a^k - c^k) / 2]² - 0 = (p^k)*
 
 ---
 
-#### **Case 2: ? ? 0** (High volatility, frequent crashes)
+#### **Case 2: ? ? 0** (Crash certainty)
 
-For the volatility term:
-
-\\\
-(1 - ?) · c^k · [(? · a^k - c^k) / (2?)]
-= (1 - ?) · c^k · [a^k/2 - c^k/(2?)]
-? -(c^k)² / (2?)  as  ? ? 0
-? -8
-\\\
-
-Plugging back:
+As ? ? 0, the optimal quantity:
 
 \\\
-(p^k)* = [(? · a^k - c^k) / 2]² + 8
+q* = (? · a^k - c^k) / (2?) ? -c^k / (2?) ? -8
 \\\
 
-**Result**: Expected profit with Bitcoin ? **+8**
+The loss term dominates:
+
+\\\
+(1 - ?) · c^k · q* ? 1 · c^k · (-c^k / (2?)) = -(c^k)² / (2?) ? -8
+\\\
+
+**Result**: As ? ? 0 (crash certainty), the loss term (1-?)·c^k·q^k dominates.
+Since q* = (?a^k - c^k)/(2?) ? -c^k/(2?) ? -8, and (1-?) ? 1,
+the expected profit E[?*] ? **-8**. A firm facing certain Bitcoin crashes
+will not produce — this is the economically correct result.
+The code correctly returns E[?] = -8 for ? = 0.
 
 ---
 
-### 5.3 Interpretation (Counterintuitive Finding)
+### 5.3 Interpretation
 
-**As volatility increases (? ? 0), Bitcoin situations become infinitely more profitable.**
+**As crash certainty increases (? ? 0), Bitcoin adoption becomes strictly dominated.**
 
-**Why?** 
+At ? = 0, the firm would need to produce a negative quantity (q* ? -8) to satisfy the FOC, which is economically infeasible. Expected profit collapses to -8. This is the correct economic result: a firm facing certain Bitcoin crashes earns unboundedly negative expected profit and will not participate.
 
-This is a **mathematical artifact** of the model's simplification, not economic reality. The model assumes:
-- Crash ? firm absorbs full cost loss
-- No upper bound on losses
+**At ? = 1** (no crash risk), the stochastic term vanishes and the Set Y equilibrium reduces exactly to the deterministic Set X form. The code verifies this: at ? = 1, E[?^G*] = 2997.56 > ?^C* = 2678.06, confirming that without volatility risk, Bitcoin's lower transaction cost advantage is fully realized.
 
-**Economic interpretation**:
-- The model captures that in high-volatility environments, **accepting Bitcoin can still be optimal** if:
-  - Marginal costs are low
-  - Willingness to pay (\( a^k \)) compensates for risk
-  - Network effects (not fully solved here) increase demand
+**For general ? ? (0, 1)**, the critical threshold ?* ? 0.9506 separates the regime where Bitcoin adoption is profitable (?  > ?*) from where it is not (? < ?*). Section 3 of the paper presents the full numerical analysis.
 
-**Limitations** (acknowledged in original paper):
-- Need better volatility modeling (financial economics methods)
-- Need to bound losses realistically
-- Consumer choice (N^k) not fully endogenized
+**Limitations**:
+- Consumer choice (N^k) is not fully endogenized; N^b is treated as exogenous
+- The model captures only downside volatility (crashes); a symmetric treatment incorporating appreciation would likely lower ?*
 
 ---
 

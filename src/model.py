@@ -10,8 +10,7 @@ considering transaction costs, network effects, and Bitcoin volatility.
 """
 
 import numpy as np
-from scipy.optimize import fsolve, minimize_scalar
-from typing import Dict, Tuple, Optional, List
+from typing import Dict, Tuple, Optional, List, Any
 from dataclasses import dataclass
 from enum import Enum
 
@@ -323,7 +322,7 @@ class ProducerModel:
         }
 
     def bitcoin_adoption_condition(self, non_bitcoin_method: str = "C",
-                                   bitcoin_method: str = "G") -> Dict[str, any]:
+                                   bitcoin_method: str = "G") -> Dict[str, Any]:
         """
         Analyze conditions under which Bitcoin adoption is profitable.
 
