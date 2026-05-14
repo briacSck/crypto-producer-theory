@@ -223,7 +223,7 @@ At ? = 0, the firm would need to produce a negative quantity (q* ? -8) to satisf
 
 **At ? = 1** (no crash risk), the stochastic term vanishes and the Set Y equilibrium reduces exactly to the deterministic Set X form. The code verifies this: at ? = 1, E[?^G*] = 2997.56 > ?^C* = 2678.06, confirming that without volatility risk, Bitcoin's lower transaction cost advantage is fully realized.
 
-**For general ? ? (0, 1)**, the critical threshold ?* ? 0.9506 separates the regime where Bitcoin adoption is profitable (?  > ?*) from where it is not (? < ?*). Section 3 of the paper presents the full numerical analysis.
+**For general ? ? (0, 1)**, the critical threshold ?* ? 0.9032 separates the regime where Bitcoin adoption is profitable (?  > ?*) from where it is not (? < ?*). Section 3 of the paper presents the full numerical analysis.
 
 **Limitations**:
 - Consumer choice (N^k) is not fully endogenized; N^b is treated as exogenous

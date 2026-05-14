@@ -2,8 +2,8 @@
 Crypto Producer Theory: Payment Method Choice Model
 
 This module implements the producer profit maximization model from:
-Noel, Thomas & Sockalingum, Briac (2024). "Crypto Producer Theory"
-UC Berkeley INFO 134/234.
+Noel, Thomas & Sockalingum, Briac (2024, revised 2026). "Crypto Producer Theory:
+Payment Method Choice and Bitcoin Adoption Under Volatility Risk."
 
 The model analyzes firm decisions to accept Bitcoin, cash, and/or card payments
 considering transaction costs, network effects, and Bitcoin volatility.
