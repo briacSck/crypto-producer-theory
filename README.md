@@ -1,5 +1,7 @@
 # Crypto Producer Theory: Payment Method Choice and Bitcoin Adoption Under Volatility Risk
 
+[![Tests](https://github.com/briacSck/crypto-producer-theory/actions/workflows/tests.yml/badge.svg)](https://github.com/briacSck/crypto-producer-theory/actions/workflows/tests.yml)
+
 This project develops a partial-equilibrium model of a firm's payment-method decision when Bitcoin is one of the available options. The central tension is straightforward: Bitcoin carries lower transaction costs than card networks, but it introduces crash risk — with probability `1 − γ` the firm produces, incurs costs, and receives nothing. We derive closed-form equilibria for seven payment scenarios and characterize the critical stability threshold `γ*` above which Bitcoin adoption is profit-maximizing.
 
 ## Motivation
@@ -64,6 +66,10 @@ tables/                                  # Computed results (CSV + LaTeX)
 figures/                                 # Adoption threshold and phase diagrams
 paper/                                   # Paper (TeX source + PDF)
 ```
+
+## License
+
+Code: [MIT](LICENSE). Paper and figures © 2024–2026 Noel & Sockalingum, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
 ## Status
 

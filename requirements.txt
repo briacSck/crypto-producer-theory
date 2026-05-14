@@ -1,6 +1,7 @@
-numpy
-scipy
-pandas
-matplotlib
-seaborn
-jupyter
+numpy>=1.24,<3.0
+scipy>=1.10
+pandas>=2.0
+matplotlib>=3.7
+seaborn>=0.12
+jupyter>=1.0
+pytest>=7.0

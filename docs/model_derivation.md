@@ -4,7 +4,7 @@
 
 This document presents the formal derivation of a producer profit maximization model in economies where Bitcoin is legal tender (e.g., El Salvador). The model compares profits across seven payment acceptance situations, incorporating cryptocurrency volatility.
 
-Based on: Noel, T. & Sockalingum, B. (2024). *Crypto Producer Theory*. UC Berkeley INFO 134/234.
+Based on: Noel, T. & Sockalingum, B. (2024, revised 2026). *Crypto Producer Theory: Payment Method Choice and Bitcoin Adoption Under Volatility Risk.*
 
 ---
 
@@ -40,7 +40,7 @@ Consumer utility \( U^k_i \) for using payment method \( k \) is an **increasing
 - \( N^k \): Number of consumers using method \( k \)
 - \( M^k \): Number of firms accepting method \( k \)
 
-**Implication**: Higher adoption ? higher utility (network externality)
+**Implication**: Higher adoption → higher utility (network externality)
 
 **Equilibrium condition** (not solved in this paper):
 \\\
@@ -88,8 +88,8 @@ Where \( a^k \) = willingness to pay for consumers using method \( k \).
 
 Bitcoin exhibits **price volatility**. Model this as:
 
-- **?**: Probability that Bitcoin price remains stable (no crash)
-- **1 - ?**: Probability of Bitcoin crash
+- **γ**: Probability that Bitcoin price remains stable (no crash)
+- **1 - γ**: Probability of Bitcoin crash
 
 **Assumption**: If Bitcoin crashes, firm's profit = **-c^k · q^k** (pure loss of costs).
 
@@ -98,13 +98,13 @@ Bitcoin exhibits **price volatility**. Model this as:
 For situations including Bitcoin (\( k \in Y \)):
 
 \\\
-E(p^k_j) = ? · [P^k(q^k) · q^k - c^k · q^k] - (1 - ?) · c^k · q^k
+E(p^k_j) = γ · [P^k(q^k) · q^k - c^k · q^k] - (1 - γ) · c^k · q^k
 \\\
 
 Simplifying:
 
 \\\
-E(p^k_j) = ? · [(a^k - q^k) · q^k - c^k · q^k] - (1 - ?) · c^k · q^k
+E(p^k_j) = γ · [(a^k - q^k) · q^k - c^k · q^k] - (1 - γ) · c^k · q^k
 \\\
 
 ---
@@ -122,8 +122,8 @@ p^k_j = (a^k - q^k) · q^k - c^k · q^k
 **First-order condition**:
 
 \\\
-?p^k_j / ?q^k = 0 
-? a^k - 2q^k - c^k = 0
+∂p^k_j / ∂q^k = 0
+⟹ a^k - 2q^k - c^k = 0
 \\\
 
 **Equilibrium**:
@@ -131,7 +131,7 @@ p^k_j = (a^k - q^k) · q^k - c^k · q^k
 \\\
 (q^k)* = (a^k - c^k) / 2
 (p^k)* = (a^k + c^k) / 2
-(p^k)* = [(a^k - c^k) / 2]²
+π^k* = [(a^k - c^k) / 2]²
 \\\
 
 **Standard result**: Profit depends quadratically on (willingness to pay - cost).
@@ -143,25 +143,25 @@ p^k_j = (a^k - q^k) · q^k - c^k · q^k
 **Expected profit function**:
 
 \\\
-E(p^k_j) = ? · [(a^k - q^k) · q^k - c^k · q^k] - (1 - ?) · c^k · q^k
+E(p^k_j) = γ · [(a^k - q^k) · q^k - c^k · q^k] - (1 - γ) · c^k · q^k
 \\\
 
 **First-order condition**:
 
 \\\
-?E(p^k_j) / ?q^k = 0 
-? ? · (a^k - 2q^k - c^k) - (1 - ?) · c^k = 0
+∂E(p^k_j) / ∂q^k = 0
+⟹ γ · (a^k - 2q^k - c^k) - (1 - γ) · c^k = 0
 \\\
 
 **Equilibrium**:
 
 \\\
-(q^k)* = (? · a^k - c^k) / (2?)
-(p^k)* = (? · a^k + c^k) / (2?)
-E(π^k_j)* = (? · a^k - c^k)² / (4?)
+(q^k)* = (γ · a^k - c^k) / (2γ)
+(p^k)* = (γ · a^k + c^k) / (2γ)
+E(π^k_j)* = (γ · a^k - c^k)² / (4γ)
 \\\
 
-**Key parameter**: Volatility probability **?** directly affects optimal quantity and expected profit.
+**Key parameter**: Volatility probability **γ** directly affects optimal quantity and expected profit.
 
 ---
 
@@ -172,18 +172,18 @@ E(π^k_j)* = (? · a^k - c^k)² / (4?)
 Compare profits:
 
 \\\
-(p^k)* = E(p^k_j)*  ?
+π^{k*} ≤ E[π^k_j]*
 \\\
 
-For which values of **?** is accepting Bitcoin more profitable?
+For which values of **γ** is accepting Bitcoin more profitable?
 
 ---
 
 ### 5.2 Extreme Cases
 
-#### **Case 1: ? = 1** (No volatility)
+#### **Case 1: γ = 1** (No volatility)
 
-When ? = 1 (Bitcoin never crashes):
+When γ = 1 (Bitcoin never crashes):
 
 \\\
 E(p^k_j)* = [(a^k - c^k) / 2]² - 0 = (p^k)*
@@ -193,41 +193,41 @@ E(p^k_j)* = [(a^k - c^k) / 2]² - 0 = (p^k)*
 
 ---
 
-#### **Case 2: ? ? 0** (Crash certainty)
+#### **Case 2: γ → 0** (Crash certainty)
 
-As ? ? 0, the optimal quantity:
+As γ → 0, the optimal quantity:
 
 \\\
-q* = (? · a^k - c^k) / (2?) ? -c^k / (2?) ? -8
+q* = (γ · a^k - c^k) / (2γ) → -c^k / (2γ) → -∞
 \\\
 
 The loss term dominates:
 
 \\\
-(1 - ?) · c^k · q* ? 1 · c^k · (-c^k / (2?)) = -(c^k)² / (2?) ? -8
+(1 - γ) · c^k · q* → 1 · c^k · (-c^k / (2γ)) = -(c^k)² / (2γ) → -∞
 \\\
 
-**Result**: As ? ? 0 (crash certainty), the loss term (1-?)·c^k·q^k dominates.
-Since q* = (?a^k - c^k)/(2?) ? -c^k/(2?) ? -?, and (1-?) ? 1,
-the expected profit E[?*] ? **-?**. A firm facing certain Bitcoin crashes
+**Result**: As γ → 0 (crash certainty), the loss term (1-γ)·c^k·q^k dominates.
+Since q* = (γa^k - c^k)/(2γ) → -c^k/(2γ) → -∞, and (1-γ) → 1,
+the expected profit E[π*] → **-∞**. A firm facing certain Bitcoin crashes
 will not produce — this is the economically correct result.
-The code correctly returns E[?] = -? for ? = 0.
+The code correctly returns E[π] = -∞ for γ = 0.
 
 ---
 
 ### 5.3 Interpretation
 
-**As crash certainty increases (? ? 0), Bitcoin adoption becomes strictly dominated.**
+**As crash certainty increases (γ → 0), Bitcoin adoption becomes strictly dominated.**
 
-At ? = 0, the firm would need to produce a negative quantity (q* ? -8) to satisfy the FOC, which is economically infeasible. Expected profit collapses to -8. This is the correct economic result: a firm facing certain Bitcoin crashes earns unboundedly negative expected profit and will not participate.
+At γ = 0, the firm would need to produce a negative quantity (q* → -∞) to satisfy the FOC, which is economically infeasible. Expected profit collapses to -∞. This is the correct economic result: a firm facing certain Bitcoin crashes earns unboundedly negative expected profit and will not participate.
 
-**At ? = 1** (no crash risk), the stochastic term vanishes and the Set Y equilibrium reduces exactly to the deterministic Set X form. The code verifies this: at ? = 1, E[?^G*] = 2997.56 > ?^C* = 2678.06, confirming that without volatility risk, Bitcoin's lower transaction cost advantage is fully realized.
+**At γ = 1** (no crash risk), the stochastic term vanishes and the Set Y equilibrium reduces exactly to the deterministic Set X form. The code verifies this: at γ = 1, E[π^G*] = 2997.56 > π^C* = 2678.06, confirming that without volatility risk, Bitcoin's lower transaction cost advantage is fully realized.
 
-**For general ? ? (0, 1)**, the critical threshold ?* ? 0.9032 separates the regime where Bitcoin adoption is profitable (?  > ?*) from where it is not (? < ?*). Section 3 of the paper presents the full numerical analysis.
+**For general γ ∈ (0, 1)**, the critical threshold γ* ≈ 0.9032 separates the regime where Bitcoin adoption is profitable (γ > γ*) from where it is not (γ < γ*). Section 3 of the paper presents the full numerical analysis.
 
 **Limitations**:
 - Consumer choice (N^k) is not fully endogenized; N^b is treated as exogenous
-- The model captures only downside volatility (crashes); a symmetric treatment incorporating appreciation would likely lower ?*
+- The model captures only downside volatility (crashes); a symmetric treatment incorporating appreciation would likely lower γ*
 
 ---
 
@@ -235,7 +235,7 @@ At ? = 0, the firm would need to produce a negative quantity (q* ? -8) to satisf
 
 This model exhibits features common to **information technologies**:
 
-1. **Network effects**: Payment method value ? with adoption (like platforms)
+1. **Network effects**: Payment method value ↑ with adoption (like platforms)
 2. **Low marginal costs**: Crypto transactions have lower fees than card networks
 3. **Low switching costs**: Easy to switch between blockchains (low lock-in)
 4. **Privacy tradeoffs**: Blockchain transparency vs. consumer privacy (privacy paradox)
@@ -245,7 +245,7 @@ This model exhibits features common to **information technologies**:
 ## 7. Future Extensions (From Original Paper)
 
 ### Not Yet Solved:
-1. **General inequality** for all ? ? [0,1] (only extremes solved)
+1. **General inequality** for all γ ∈ [0,1] (only extremes solved)
 2. **Consumer equilibrium**: Derive N^k endogenously from utility maximization
 3. **Better volatility modeling**: Use financial economics (variance, option pricing)
 4. **Detailed cost structure**: Distinguish fixed vs. variable costs by payment type
@@ -260,6 +260,6 @@ This model exhibits features common to **information technologies**:
 
 ## References
 
-Noel, T. & Sockalingum, B. (2024). *Crypto Producer Theory*. UC Berkeley INFO 134/234 Final Paper.
+Noel, T. & Sockalingum, B. (2024, revised 2026). *Crypto Producer Theory: Payment Method Choice and Bitcoin Adoption Under Volatility Risk.*
 
 El Salvador Bitcoin adoption (2021), BIS cryptocurrency research (2021), China e-CNY research (2023).
