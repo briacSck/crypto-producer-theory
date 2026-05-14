@@ -198,6 +198,26 @@ results.
 \subsection{Baseline Equilibrium ($\gamma = 0.7$)}
 \label{sec:baseline}
 
+\paragraph{Parameter calibration.}
+The demand intercepts $a^k$ are normalized so that each additional payment rail
+raises the effective willingness-to-pay by 5 units, reflecting the consumer-side
+network effect documented in the payment-adoption literature: a merchant that
+accepts an additional method serves a broader customer segment
+\citep{rysman2007}.
+The ordering $a^G > a^C > a^B > a^A > a^D$ captures the fact that
+payment flexibility dominates cash-only acceptance while Bitcoin-only acceptance
+carries adoption friction.
+Transaction costs are calibrated to stylized facts: card-network interchange fees
+typically range 1.5--3.5\% of transaction value for Visa/Mastercard
+\citep{rochet2003}; with a representative transaction value near \$300,
+$c^B = 8$ and $c^C = 6.5$ are consistent with a blended rate of
+approximately 2--3\%.
+Bitcoin and Lightning Network transaction fees are sub-cent per transfer,
+motivating $c^G = 5.5 < c^C = 6.5$; the 0.15-unit cost advantage corresponds
+to roughly 0.15\% of a \$700 equilibrium price.
+Absolute magnitudes are normalizations; the qualitative results depend only
+on the sign and ordering of cost differences.
+
 Table~\ref{tab:equilibrium_baseline} reports equilibrium quantities, prices,
 and profits for all seven scenarios under the baseline assumption $\gamma = 0.7$.
 
@@ -247,7 +267,9 @@ at $\gamma = 0.95$, crossing zero at $\gamma^* \approx 0.9032$.
 
 \begin{table}[h]
 \centering
-\caption{Profit differential $E[\pi^{G*}] - \pi^{C*}$ across Bitcoin stability levels}
+\caption{Profit differential $E[\pi^{G*}] - \pi^{C*}$ across Bitcoin stability
+levels. Values rounded to two decimal places; exact values in
+\texttt{tables/results\_summary.csv}.}
 \label{tab:profit_comparison}
 \begin{tabular}{crrrc}
 \toprule
@@ -326,6 +348,31 @@ cost $c^G$. As $c^G$ falls, $\gamma^*$ decreases, expanding the set of market
 conditions under which Bitcoin adoption is profit-maximizing.}
 \label{fig:costsens}
 \end{figure}
+
+Table~\ref{tab:sensitivity} quantifies this relationship for five representative
+values of $c^G$, holding all other parameters at their baseline values.
+
+\begin{table}[h]
+\centering
+\caption{Critical adoption threshold $\gamma^*$ as a function of Bitcoin
+transaction cost $c^G$ (baseline: $c^G = 5.5$, $a^G = 115$, $a^C = 110$,
+$c^C = 6.5$)}
+\label{tab:sensitivity}
+\begin{tabular}{ccc}
+\toprule
+$c^G$ & $\gamma^*$ & Adoption condition \\
+\midrule
+1.0  & 0.8273 & $\gamma > 0.8273$ \\
+2.0  & 0.8444 & $\gamma > 0.8444$ \\
+5.5  & 0.9031 & $\gamma > 0.9031$ \quad (baseline) \\
+8.0  & 0.9440 & $\gamma > 0.9440$ \\
+12.0 & $>1$   & Never profitable \\
+\bottomrule
+\end{tabular}
+\smallskip\\
+{\small $\gamma^* > 1$ indicates that no level of Bitcoin stability makes
+adoption profitable; Bitcoin's cost disadvantage ($c^G > c^C$) dominates.}
+\end{table}
 
 %-----------------------------------------------------------------------
 \section{Discussion}

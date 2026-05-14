@@ -23,7 +23,9 @@ G & All Three              & 53.57 & 61.43 & 2008.93 & $E[\pi^*]$ \\
 % TABLE 2: Profit comparison across gamma values
 \begin{table}[h]
 \centering
-\caption{Profit differential $E[\pi^{G*}] - \pi^{C*}$ across Bitcoin stability levels ($\gamma^* \approx 0.9032$)}
+\caption{Profit differential $E[\pi^{G*}] - \pi^{C*}$ across Bitcoin stability
+levels ($\gamma^* \approx 0.9032$). Values rounded to two decimal places;
+exact values in \texttt{tables/results\_summary.csv}.}
 \label{tab:profit_comparison}
 \begin{tabular}{crrrc}
 \toprule
@@ -37,4 +39,27 @@ $\gamma$ & $\pi^{C*}$ & $E[\pi^{G*}]$ & $\Delta$ Profit & Adopt Bitcoin? \\
 1.00 & 2678.06 &  2997.56 &  $+$319.50 & Yes \\
 \bottomrule
 \end{tabular}
+\end{table}
+
+% TABLE 3: Cost sensitivity — gamma* as a function of c^G
+\begin{table}[h]
+\centering
+\caption{Critical adoption threshold $\gamma^*$ as a function of Bitcoin
+transaction cost $c^G$ (baseline: $c^G = 5.5$, $a^G = 115$, $a^C = 110$,
+$c^C = 6.5$)}
+\label{tab:sensitivity}
+\begin{tabular}{ccc}
+\toprule
+$c^G$ & $\gamma^*$ & Adoption condition \\
+\midrule
+1.0  & 0.8273 & $\gamma > 0.8273$ \\
+2.0  & 0.8444 & $\gamma > 0.8444$ \\
+5.5  & 0.9031 & $\gamma > 0.9031$ \quad (baseline) \\
+8.0  & 0.9440 & $\gamma > 0.9440$ \\
+12.0 & $>1$   & Never profitable \\
+\bottomrule
+\end{tabular}
+\smallskip\\
+{\small $\gamma^* > 1$ indicates that no level of Bitcoin stability makes
+adoption profitable; Bitcoin's cost disadvantage ($c^G > c^C$) dominates.}
 \end{table}
