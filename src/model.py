@@ -9,6 +9,7 @@ The model analyzes firm decisions to accept Bitcoin, cash, and/or card payments
 considering transaction costs, network effects, and Bitcoin volatility.
 """
 
+import math
 import numpy as np
 from typing import Dict, Tuple, Optional, List, Any
 from dataclasses import dataclass
@@ -35,14 +36,10 @@ class ModelParameters:
         a_k: Willingness to pay for payment method k (dict by method)
         c_k: Marginal cost for payment method k (dict by method)
         gamma: Probability that Bitcoin volatility is favorable (0 ≤ γ ≤ 1)
-        N_k: Number of consumers using payment method k (dict)
-        M_k: Number of firms accepting payment method k (dict)
     """
     a_k: Dict[str, float]
     c_k: Dict[str, float]
     gamma: float
-    N_k: Optional[Dict[str, float]] = None
-    M_k: Optional[Dict[str, float]] = None
 
     def __post_init__(self):
         """Validate parameters"""
@@ -133,44 +130,21 @@ class ProducerModel:
 
     def profit_without_volatility(self, q: float, a_k: float, c_k: float) -> float:
         """
-        Profit function for scenarios WITHOUT Bitcoin (Equation 1).
-
-        π^k_j = (a^k - q^k)q^k - c^k q^k
-
-        Args:
-            q: Quantity
-            a_k: Willingness to pay
-            c_k: Marginal cost
-
-        Returns:
-            Profit
+        Profit at arbitrary q for Set X scenarios. For external verification only —
+        the solvers use the closed-form optimum directly.
         """
         p = self.inverse_demand(q, a_k)
         return p * q - c_k * q
 
-    def expected_profit_with_volatility(self, q: float, a_k: float, 
-                                       c_k: float, gamma: float) -> float:
+    def expected_profit_with_volatility(self, q: float, a_k: float,
+                                        c_k: float, gamma: float) -> float:
         """
-        Expected profit function for scenarios WITH Bitcoin (Equation 2).
-
-        E(π^k_j) = γ[(a^k - q^k)q^k - c^k q^k] - (1 - γ)c^k q^k
-
-        With probability γ: normal profit
-        With probability (1-γ): lose revenue, only pay costs
-
-        Args:
-            q: Quantity
-            a_k: Willingness to pay
-            c_k: Marginal cost
-            gamma: Probability of favorable volatility
-
-        Returns:
-            Expected profit
+        Expected profit at arbitrary q for Set Y scenarios. For external verification
+        only — the solvers use the closed-form optimum directly.
         """
         p = self.inverse_demand(q, a_k)
         normal_profit = p * q - c_k * q
         crash_loss = c_k * q
-
         return gamma * normal_profit - (1 - gamma) * crash_loss
 
     def solve_equilibrium_without_volatility(self, method: str) -> EquilibriumResult:
@@ -364,24 +338,58 @@ class ProducerModel:
         return (f"With {vol_desc} (γ={gamma:.2f}), producer should "
                 f"{decision} Bitcoin as payment method")
 
+    @staticmethod
+    def compute_gamma_star(a_G: float, c_G: float, a_C: float, c_C: float) -> float:
+        """
+        Analytical adoption threshold γ* from the quadratic E[π^G*] = π^C*.
+
+        Setting (γ a_G − c_G)² / (4γ) = ((a_C − c_C)/2)² and clearing fractions
+        yields A γ² − B γ + C = 0 where:
+            A = a_G²
+            B = 2 a_G c_G + (a_C − c_C)²
+            C = c_G²
+
+        The economically relevant root is the larger one (the trivial lower root
+        ≈ (c_G/a_G)² / (a_C−c_C)² is the infeasibility boundary, not the adoption
+        threshold).
+
+        Args:
+            a_G: Demand intercept for all-three scenario (G)
+            c_G: Marginal cost for all-three scenario (G)
+            a_C: Demand intercept for cash+card scenario (C)
+            c_C: Marginal cost for cash+card scenario (C)
+
+        Returns:
+            γ* — the exact adoption threshold
+        """
+        A = a_G ** 2
+        B = 2 * a_G * c_G + (a_C - c_C) ** 2
+        C = c_G ** 2
+        discriminant = B ** 2 - 4 * A * C
+        if discriminant < 0:
+            raise ValueError("No real adoption threshold exists for these parameters")
+        return (B + math.sqrt(discriminant)) / (2 * A)
+
     def gamma_threshold_analysis(self, non_bitcoin_method: str = "C",
                                  bitcoin_method: str = "G",
                                  gamma_range: Tuple[float, float] = (0.01, 0.99),
                                  n_points: int = 100) -> Dict[str, np.ndarray]:
         """
-        Analyze how profitability changes across gamma values.
+        Profit curves across gamma values, with an exact analytical threshold.
 
-        Useful for finding critical thresholds where Bitcoin adoption
-        becomes profitable.
+        The profit curves (used for figures) are computed on an n_points grid.
+        The returned gamma_threshold is the exact analytical value from
+        compute_gamma_star(), not a grid approximation — it is independent of
+        n_points.
 
         Args:
             non_bitcoin_method: Baseline without Bitcoin
             bitcoin_method: Method with Bitcoin
-            gamma_range: Range of gamma values to test
-            n_points: Number of points to evaluate
+            gamma_range: Range of gamma values to scan for the profit curves
+            n_points: Number of points for the profit-curve arrays
 
         Returns:
-            Dictionary with gamma values, profits, and differences
+            Dictionary with gamma values, profits, differences, and exact threshold
         """
         gammas = np.linspace(gamma_range[0], gamma_range[1], n_points)
         profits_non_btc = []
@@ -401,9 +409,12 @@ class ProducerModel:
 
         profit_diffs = np.array(profits_btc) - np.array(profits_non_btc)
 
-        # Find threshold where Bitcoin becomes profitable
-        threshold_idx = np.where(profit_diffs > 0)[0]
-        gamma_threshold = gammas[threshold_idx[0]] if len(threshold_idx) > 0 else None
+        # Exact analytical threshold (independent of grid resolution)
+        a_G = self.params.a_k[bitcoin_method]
+        c_G = self.params.c_k[bitcoin_method]
+        a_C = self.params.a_k[non_bitcoin_method]
+        c_C = self.params.c_k[non_bitcoin_method]
+        gamma_threshold = self.compute_gamma_star(a_G, c_G, a_C, c_C)
 
         return {
             "gamma_values": gammas,

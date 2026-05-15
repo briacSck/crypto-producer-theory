@@ -36,7 +36,7 @@ At `γ = 1` this reduces exactly to the Set X formula. As `γ` falls, the effect
 
 The adoption decision reduces to comparing `E[π^{G*}]` (Scenario G, all three methods) against `π^{C*}` (Scenario C, Cash + Card — the best non-Bitcoin alternative). There exists a unique threshold `γ*` at which the two are equal; Bitcoin adoption is profit-maximizing if and only if `γ > γ*`.
 
-Under baseline parameters, **`γ* ≈ 0.9032`**: the firm requires Bitcoin to be crash-free at least 90% of the time for adoption to be rational. This threshold is consistent with the empirically low merchant adoption rates observed globally, and provides a formal rationale for why stablecoins and CBDCs — which by design push `γ` toward 1 — could substantially lower the barrier to crypto adoption.
+Under baseline parameters, **`γ* ≈ 0.9031`**: the firm requires Bitcoin to be crash-free at least 90% of the time for adoption to be rational. This threshold is consistent with the empirically low merchant adoption rates observed globally, and provides a formal rationale for why stablecoins and CBDCs — which by design push `γ` toward 1 — could substantially lower the barrier to crypto adoption.
 
 ## Getting Started
 

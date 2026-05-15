@@ -207,11 +207,19 @@ The loss term dominates:
 (1 - γ) · c^k · q* → 1 · c^k · (-c^k / (2γ)) = -(c^k)² / (2γ) → -∞
 \\\
 
-**Result**: As γ → 0 (crash certainty), the loss term (1-γ)·c^k·q^k dominates.
-Since q* = (γa^k - c^k)/(2γ) → -c^k/(2γ) → -∞, and (1-γ) → 1,
-the expected profit E[π*] → **-∞**. A firm facing certain Bitcoin crashes
-will not produce — this is the economically correct result.
-The code correctly returns E[π] = -∞ for γ = 0.
+**Result**: The unconstrained FOC gives q* = (γa^k - c^k)/(2γ) → -c^k/(2γ) → -∞
+as γ → 0, implying E[π*] → -∞ in the unconstrained problem.
+
+The code applies the non-negativity constraint q ≥ 0:
+
+- **γ = 0 exactly**: the code returns E[π*] = -∞ (crash certainty, no production
+  is feasible at positive output).
+- **0 < γ ≤ c^k/a^k**: the numerator γa^k - c^k ≤ 0, so q* = 0 and E[π*] = 0
+  (the constrained optimum; the firm produces nothing and earns zero).
+- **γ > c^k/a^k**: the interior solution q* > 0 applies.
+
+The -∞ result therefore applies only at γ = 0 exactly; for small positive γ the
+code correctly returns 0, not -∞.
 
 ---
 
@@ -223,7 +231,7 @@ At γ = 0, the firm would need to produce a negative quantity (q* → -∞) to s
 
 **At γ = 1** (no crash risk), the stochastic term vanishes and the Set Y equilibrium reduces exactly to the deterministic Set X form. The code verifies this: at γ = 1, E[π^G*] = 2997.56 > π^C* = 2678.06, confirming that without volatility risk, Bitcoin's lower transaction cost advantage is fully realized.
 
-**For general γ ∈ (0, 1)**, the critical threshold γ* ≈ 0.9032 separates the regime where Bitcoin adoption is profitable (γ > γ*) from where it is not (γ < γ*). Section 3 of the paper presents the full numerical analysis.
+**For general γ ∈ (0, 1)**, the critical threshold γ* ≈ 0.9031 (computed analytically from the quadratic derived in Section 2.3 of the paper) separates the regime where Bitcoin adoption is profitable (γ > γ*) from where it is not (γ < γ*).
 
 **Limitations**:
 - Consumer choice (N^k) is not fully endogenized; N^b is treated as exogenous

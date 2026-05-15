@@ -27,8 +27,8 @@ Closed-form equilibria are derived for each scenario using standard first- and
 second-order conditions.
 Comparing Set~X and Set~Y expected profits yields a critical stability threshold
 $\gamma^*$: Bitcoin acceptance is profit-maximizing if and only if $\gamma > \gamma^*$.
-Under baseline parameters ($a^G = 115$, $c^G = 5.5$, $a^C = 103.5 + c^C$,
-$c^C$ calibrated to match the Cash+Card optimum), we find $\gamma^* \approx 0.9032$.
+Under baseline parameters ($a^G = 115$, $c^G = 5.5$, $a^C = 110$, $c^C = 6.5$),
+we find $\gamma^* \approx 0.9031$.
 This means Bitcoin adoption requires a crash probability below approximately 10\%
 to be rational for the firm.
 The result is consistent with low global merchant adoption of Bitcoin and
@@ -53,7 +53,7 @@ standard profit-maximization framework: transaction costs differ across payment
 rails, demand may depend on which methods are accepted, and Bitcoin introduces
 a novel stochastic dimension through price volatility.
 Prior literature has examined network effects in payment systems
-\citep{rochet2003}, switching costs in digital platforms \citep{farrell1987},
+\citep{rochet2003}, switching costs in digital platforms \citep{klemperer1987},
 and the economics of information goods \citep{shapiro1998} --- all of which
 apply here.
 
@@ -61,12 +61,17 @@ This paper contributes a tractable analytical model that embeds Bitcoin
 volatility directly into the producer's expected-profit objective and derives
 the adoption threshold in closed form.
 We calibrate to plausible parameter values and find that Bitcoin adoption
-requires a crash probability below approximately 10\% ($\gamma > 0.9032$) to
+requires a crash probability below approximately 10\% ($\gamma > 0.9031$) to
 be profit-maximizing relative to a Cash+Card alternative, given realistic cost
 differentials.
+Because Scenario~G (all three methods) dominates D, E, and F within Set~Y for
+all feasible $\gamma$, the economically relevant comparison is G against C (the
+best non-Bitcoin option); this is the comparison we analyze throughout.
 This threshold is well above the stability levels observed in most Bitcoin
 markets over the past decade, providing a theoretical foundation for the
-empirically low merchant adoption rates documented in \citet{catalini2016}.
+empirically low merchant adoption rates documented in \citet{catalini2016} and
+directly corroborated by \citet{alvarez2023}, who find that fewer than 5\% of
+transactions used Bitcoin in El Salvador even after the 2021 Legal Tender Law.
 
 The paper proceeds as follows.
 Section~\ref{sec:model} develops the theoretical model and derives
@@ -101,6 +106,13 @@ following assumptions:
         For multi-method firms (Scenarios E, F, G), $c^k$ is the
         \emph{weighted average} transaction cost across accepted methods, with
         consumers self-selecting their preferred method.
+        Formally, let $s^m \geq 0$ denote the share of consumers using rail $m$
+        when all accepted rails are available, with $\sum_m s^m = 1$.
+        Then $a^k = \sum_m s^m a^m$ and $c^k = \sum_m s^m c^m$, and the
+        representative-agent model follows directly.
+        The calibration $a^G = 115$, $c^G = 5.5$ subsumes these share-weighted
+        averages; the qualitative results depend only on the ranking of the
+        resulting $a^k$ and $c^k$.
   \item \textbf{Bitcoin volatility.}
         In each period, Bitcoin maintains its value with probability $\gamma \in (0,1]$
         (``no crash'') and becomes worthless with probability $1-\gamma$ (``crash'').
@@ -187,8 +199,25 @@ non-Bitcoin alternative):
     - \left(\frac{a^C - c^C}{2}\right)^{\!2}.
   \label{eq:adoption_condition}
 \end{equation}
-This inequality is solved numerically; Section~\ref{sec:results} presents the
-results.
+Setting \eqref{eq:adoption_condition} to zero and clearing fractions yields the
+quadratic in $\gamma$:
+\begin{equation}
+  (a^G)^2 \gamma^2
+  - \bigl[2a^G c^G + (a^C - c^C)^2\bigr]\gamma
+  + (c^G)^2 = 0.
+  \label{eq:gamma_quadratic}
+\end{equation}
+The economically relevant root (the adoption threshold) is the larger root:
+\begin{equation}
+  \gamma^* = \frac{B - \sqrt{B^2 - 4(a^G)^2(c^G)^2}}{2(a^G)^2},
+  \quad
+  B = 2a^G c^G + (a^C - c^C)^2,
+  \label{eq:gamma_star_formula}
+\end{equation}
+where the smaller root, $\tilde{\gamma} = (c^G)^2 / [(a^C-c^C)^2 a^G + \ldots]
+\approx 0.003$, is the infeasibility boundary and is economically irrelevant.
+Section~\ref{sec:results} evaluates \eqref{eq:gamma_star_formula} under baseline
+parameters.
 
 %-----------------------------------------------------------------------
 \section{Quantitative Results}
@@ -252,18 +281,22 @@ Bitcoin's lower transaction cost ($c^G < c^C$) is more than offset by the
 
 We define the critical threshold $\gamma^*$ as the value at which
 $E[\pi^{G*}] = \pi^{C*}$.
-Solving \eqref{eq:adoption_condition} numerically under baseline parameters
-($a^G = 115$, $c^G = 5.5$, $a^C - c^C = 103.5$):
+Evaluating \eqref{eq:gamma_star_formula} analytically under baseline parameters
+($a^G = 115$, $c^G = 5.5$, $a^C = 110$, $c^C = 6.5$, so $a^C - c^C = 103.5$):
 \begin{equation}
-  \gamma^* \approx 0.9032.
+  \gamma^* = \frac{11977.25 - \sqrt{11977.25^2 - 4 \times 13225 \times 30.25}}{2 \times 13225}
+  \approx 0.9031.
   \label{eq:gamma_star}
 \end{equation}
 Bitcoin adoption is profit-maximizing if and only if $\gamma > \gamma^*$.
+\citet{alvarez2023} find that fewer than 5\% of transactions used Bitcoin in
+El Salvador even after the 2021 Legal Tender Law mandate, consistent with
+$\gamma^* \approx 0.9031$ requiring near-perfect stability for voluntary adoption.
 
 Table~\ref{tab:profit_comparison} shows the profit differential
 $E[\pi^{G*}] - \pi^{C*}$ across a range of $\gamma$ values.
 The differential is negative for all $\gamma \leq 0.80$ and becomes positive
-at $\gamma = 0.95$, crossing zero at $\gamma^* \approx 0.9032$.
+at $\gamma = 0.95$, crossing zero at $\gamma^* \approx 0.9031$.
 
 \begin{table}[h]
 \centering
@@ -299,7 +332,7 @@ of $\gamma$, with the adoption threshold clearly marked.
 \includegraphics[width=0.7\textwidth]{../figures/bitcoin_adoption_threshold.png}
 \caption{Expected profit differential $E[\pi^{G*}] - \pi^{C*}$ as a function
 of Bitcoin stability $\gamma$. The firm prefers Bitcoin adoption only for
-$\gamma > \gamma^* \approx 0.9032$.}
+$\gamma > \gamma^* \approx 0.9031$.}
 \label{fig:threshold}
 \end{figure}
 
@@ -310,8 +343,10 @@ Figure~\ref{fig:allscenarios} shows expected profit for all seven scenarios simu
 \includegraphics[width=0.7\textwidth]{../figures/all_scenarios_profit_curves.png}
 \caption{Expected profit as a function of Bitcoin stability $\gamma$ for all
 seven payment method scenarios (A--G). Scenarios in Set~Y (D--G) exhibit
-increasing expected profit as $\gamma$ rises, while Set~X profits (A--C)
-are flat. The all-three scenario (G) dominates for $\gamma > \gamma^*$.}
+nondecreasing expected profit as $\gamma$ rises from the feasibility threshold
+$\gamma = c^k/a^k$, while Set~X profits (A--C) are flat. The all-three
+scenario (G) dominates all other Set~Y scenarios for all feasible $\gamma$,
+making G vs.\ C the relevant adoption comparison.}
 \label{fig:allscenarios}
 \end{figure}
 
@@ -358,24 +393,42 @@ values of $c^G$, holding all other parameters at their baseline values.
 
 \begin{table}[h]
 \centering
-\caption{Critical adoption threshold $\gamma^*$ as a function of Bitcoin
-transaction cost $c^G$ (baseline: $c^G = 5.5$, $a^G = 115$, $a^C = 110$,
-$c^C = 6.5$)}
+\caption{Critical adoption threshold $\gamma^*$ under parameter variation.
+Panel A varies Bitcoin transaction cost $c^G$ (holding $a^G = 115$);
+Panel B varies demand intercept $a^G$ (holding $c^G = 5.5$).
+Both panels fix $a^C = 110$, $c^C = 6.5$.
+All $\gamma^*$ values computed from the closed-form
+expression~\eqref{eq:gamma_star_formula}.}
 \label{tab:sensitivity}
 \begin{tabular}{ccc}
 \toprule
+\multicolumn{3}{c}{\textit{Panel A: Varying $c^G$ ($a^G = 115$)}} \\
+\midrule
 $c^G$ & $\gamma^*$ & Adoption condition \\
 \midrule
-1.0  & 0.8273 & $\gamma > 0.8273$ \\
+1.0  & 0.8272 & $\gamma > 0.8272$ \\
 2.0  & 0.8444 & $\gamma > 0.8444$ \\
-5.5  & 0.9032 & $\gamma > 0.9032$ \quad (baseline) \\
+5.5  & 0.9031 & $\gamma > 0.9031$ \quad (baseline) \\
 8.0  & 0.9440 & $\gamma > 0.9440$ \\
 12.0 & $>1$   & Never profitable \\
+\midrule
+\multicolumn{3}{c}{\textit{Panel B: Varying $a^G$ ($c^G = 5.5$)}} \\
+\midrule
+$a^G$ & $\gamma^*$ & Adoption condition \\
+\midrule
+100 & 0.9580 & $\gamma > 0.9580$ \\
+105 & 0.9336 & $\gamma > 0.9336$ \\
+110 & 0.9174 & $\gamma > 0.9174$ \\
+115 & 0.9031 & $\gamma > 0.9031$ \quad (baseline) \\
+120 & 0.8900 & $\gamma > 0.8900$ \\
 \bottomrule
 \end{tabular}
 \smallskip\\
 {\small $\gamma^* > 1$ indicates that no level of Bitcoin stability makes
-adoption profitable; Bitcoin's cost disadvantage ($c^G > c^C$) dominates.}
+adoption profitable; Bitcoin's cost disadvantage ($c^G > c^C$) dominates.
+Panel~B shows that a higher demand premium for accepting all payment methods
+(larger $a^G$) substantially lowers $\gamma^*$, as the benefit of broader
+acceptance increases faster than the volatility penalty.}
 \end{table}
 
 %-----------------------------------------------------------------------
@@ -403,24 +456,33 @@ The model exhibits structural features common to information technology markets
         consumers versus permanent public transaction records.
 \end{enumerate}
 
-\subsection{Implications of $\gamma^* \approx 0.9032$}
+\subsection{Implications of $\gamma^* \approx 0.9031$}
 
-The $\gamma^* \approx 0.9032$ threshold has a direct policy interpretation.
+The $\gamma^* \approx 0.9031$ threshold has a direct policy interpretation.
 For most current Bitcoin markets --- where significant price crashes remain
 plausible within any given year --- the rational producer strategy is to avoid
 Bitcoin-only payment methods.
 At $\gamma = 0.80$, the all-three Scenario~G still underperforms
 (differential of $-\$339.86$), but crosses into profitability above
-$\gamma^* \approx 0.9032$, where Bitcoin's lower transaction cost overcomes
+$\gamma^* \approx 0.9031$, where Bitcoin's lower transaction cost overcomes
 its volatility discount.
 
-However, stablecoins or CBDCs, which by design reduce $\gamma$'s variance to
-near zero, could substantially lower this threshold.
+This prediction aligns with the most direct empirical evidence.
+\citet{alvarez2023} find that approximately 20\% of El Salvador firms used the
+government's Chivo Wallet at all following the 2021 Legal Tender Law, and that
+fewer than 5\% of transactions were conducted in Bitcoin even under legal
+mandate.
+That voluntary adoption rates in non-mandate settings are lower still is
+consistent with $\gamma^* \approx 0.9031$ requiring near-perfect stability for
+adoption to be profit-maximizing.
+
+Stablecoins or CBDCs, which by design reduce $\gamma$'s variance to near zero,
+could substantially lower this threshold.
 A CBDC with $\gamma \approx 1$ would shift the model into the $\gamma = 1$
 regime where the adoption decision depends purely on transaction cost
 differentials.
 This provides an economic rationale for why central bank interest in CBDCs
-aligns with merchant adoption incentives \citep{bis2023}.
+aligns with merchant adoption incentives \citep{bis2023,bordo2017}.
 
 %-----------------------------------------------------------------------
 \section{Limitations and Future Extensions}
@@ -453,6 +515,21 @@ The model, while tractable, has several limitations:
         The model is a single-firm analysis.
         Competitive dynamics --- where firms' adoption decisions affect rivals'
         market shares --- are left for a game-theoretic extension.
+  \item \textbf{Instant-conversion payment processors.}
+        Assumption~3 implicitly treats the merchant as bearing Bitcoin price
+        risk until the end of the settlement period.
+        In practice, a significant share of Bitcoin-accepting merchants use
+        instant-conversion processors (e.g., BitPay, Strike, Coinbase Commerce),
+        which convert Bitcoin receipts to fiat at the moment of transaction,
+        passing the crash risk to the processor in exchange for a small spread
+        fee.
+        Under instant conversion, the merchant's effective $\gamma$ is
+        mechanically driven to $1$, and the adoption decision reduces to a pure
+        cost comparison ($c^G$ vs.\ $c^C$) --- the $\gamma = 1$ limit of our
+        model.
+        Our $\gamma^* \approx 0.9031$ result therefore applies specifically to
+        merchants who bear price risk directly; the population of instant-conversion
+        users is better described by the $\gamma = 1$ regime.
 \end{enumerate}
 
 %-----------------------------------------------------------------------
@@ -462,9 +539,9 @@ The model, while tractable, has several limitations:
 
 We develop a tractable model of payment method adoption under volatility risk
 and derive a closed-form condition for Bitcoin adoption to be profit-maximizing.
-The critical threshold $\gamma^* \approx 0.9032$ implies that producers are
+The critical threshold $\gamma^* \approx 0.9031$ implies that producers are
 advised to accept Bitcoin only when market conditions suggest a crash
-probability below approximately 10\% ($\gamma > 0.9032$).
+probability below approximately 10\% ($\gamma > 0.9031$).
 For most current crypto markets, where significant volatility and crash risk
 remain, traditional payment methods (Cash + Card) remain optimal.
 
@@ -494,12 +571,29 @@ El Salvador Legislative Assembly.
 \newblock {Bitcoin Law (Ley Bitcoin)}.
 \newblock Technical report, 2021.
 
+\bibitem[Alvarez et al.(2023)]{alvarez2023}
+Alvarez, F., Argente, D., and Van~Patten, D.
+\newblock {Are Cryptocurrencies Currencies? Bitcoin as Legal Tender in
+El~Salvador}.
+\newblock \emph{Science}, 382(6677), 2023.
+\newblock doi:10.1126/science.add2844.
+
+\bibitem[Bordo and Levin(2017)]{bordo2017}
+Bordo, M.~D. and Levin, A.
+\newblock {Central Bank Digital Currency and the Future of Monetary Policy}.
+\newblock \emph{NBER Working Paper 23711}, 2017.
+
 \bibitem[Farrell and Saloner(1987)]{farrell1987}
 Farrell, J. and Saloner, G.
 \newblock {Competition, Compatibility and Standards: The Economics of Horses,
 Penguins and Lemmings}.
 \newblock In H.~L. Gabel (Ed.), \emph{Product Standardization and Competitive
 Strategy}. North-Holland, 1987.
+
+\bibitem[Klemperer(1987)]{klemperer1987}
+Klemperer, P.
+\newblock {Markets with Consumer Switching Costs}.
+\newblock \emph{Quarterly Journal of Economics}, 102(2):375--394, 1987.
 
 \bibitem[IMF(2022)]{imf2022}
 International Monetary Fund.

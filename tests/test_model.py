@@ -111,6 +111,29 @@ def test_volatility_profit_correctness():
         print(f"✅ γ={gamma}: E[π]*={result.profit_star:.4f} (direct={expected:.4f})")
 
 
+def test_analytical_gamma_star():
+    """Pin compute_gamma_star() to the exact analytical value (0.9031194...)."""
+    print("Test 3c: Analytical γ* Solver")
+    print("-" * 50)
+
+    gamma_star = ProducerModel.compute_gamma_star(
+        a_G=115.0, c_G=5.5, a_C=110.0, c_C=6.5
+    )
+    assert abs(gamma_star - 0.9031194696) < 1e-6, \
+        f"Expected γ* ≈ 0.9031194696, got {gamma_star:.10f}"
+    assert round(gamma_star, 4) == 0.9031, \
+        f"Expected γ* to round to 0.9031, got {round(gamma_star, 4)}"
+    print(f"✅ γ* = {gamma_star:.10f} (rounds to {round(gamma_star, 4)})")
+
+    # Verify it also appears correctly via gamma_threshold_analysis
+    params = create_default_parameters(gamma=0.5)
+    model = ProducerModel(params)
+    threshold_data = model.gamma_threshold_analysis(n_points=50)
+    assert abs(threshold_data['gamma_threshold'] - 0.9031194696) < 1e-6, \
+        f"gamma_threshold_analysis returned {threshold_data['gamma_threshold']:.10f}"
+    print(f"✅ gamma_threshold_analysis agrees: {threshold_data['gamma_threshold']:.10f}")
+
+
 def test_comparison_function():
     """Test scenario comparison"""
     print("Test 4: Scenario Comparison")
@@ -208,6 +231,8 @@ def run_all_tests():
         test_basic_functionality()
         test_equilibrium_without_volatility()
         test_equilibrium_with_volatility()
+        test_volatility_profit_correctness()
+        test_analytical_gamma_star()
         test_comparison_function()
         test_bitcoin_adoption_condition()
         test_gamma_threshold()
